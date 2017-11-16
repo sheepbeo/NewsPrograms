@@ -23,12 +23,19 @@ namespace Client.Network
 
         public void GetDefault(Action<RootObject> callBack)
         {
-            StartCoroutine(GetDefaultData(callBack));
+            StartCoroutine(LoadData(UriParams.Default, callBack));
         }
 
-        private IEnumerator GetDefaultData(Action<RootObject> callBack)
+        public void SearchWith(string searchText, Action<RootObject> callBack)
         {
-            var uri = _baseUriAuthenticated;
+            var uriParams = new UriParams();
+            uriParams.SetSearchParam(searchText);
+            StartCoroutine(LoadData(uriParams, callBack));
+        }
+
+        private IEnumerator LoadData(UriParams uriParams, Action<RootObject> callBack)
+        {
+            var uri = _baseUriAuthenticated + uriParams;
             Debug.Log(uri);
             UnityWebRequest www = UnityWebRequest.Get(uri);
             yield return www.Send();
@@ -39,13 +46,11 @@ namespace Client.Network
             }
             else
             {
-                var text = Regex.Replace(www.downloadHandler.text, @"("")(\w)(\w*"":)", m => 
+                var text = Regex.Replace(www.downloadHandler.text, @"("")(\w)(\w*"":)", m =>
                     m.Groups[1] + m.Groups[2].ToString().ToUpper() + m.Groups[3]);
                 var rootObject = JsonUtility.FromJson<RootObject>(text);
                 callBack(rootObject);
-                
             }
         }
-
     }
 }

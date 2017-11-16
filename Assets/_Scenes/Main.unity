@@ -226,7 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkHandlerPrefab: {fileID: 114345087186240732, guid: b7def17ab8aa0e34ea6c8643c651f8d8,
     type: 2}
-  NewsListComponent: {fileID: 295055683}
+  NewsListComponent: {fileID: 1716746161}
+  SearchComponent: {fileID: 1502384234}
 --- !u!4 &32528341
 Transform:
   m_ObjectHideFlags: 0
@@ -514,7 +515,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 295055684}
-  - component: {fileID: 295055683}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -522,20 +522,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &295055683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 295055682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e12761d344e1a644830f4987c990b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Container: {fileID: 1609031533}
-  NewsEntryComponentPrefab: {fileID: 114195685428239078, guid: 871ca35ec15fa7749b143cbabf4290f6,
-    type: 2}
 --- !u!4 &295055684
 Transform:
   m_ObjectHideFlags: 0
@@ -1527,8 +1513,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1502384232}
   - component: {fileID: 1502384233}
+  - component: {fileID: 1502384234}
   m_Layer: 5
-  m_Name: SearchBar
+  m_Name: SearchCompnent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1574,6 +1561,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1502384234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1502384231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc44e8b7071c654cb0a96122b8b07fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SearchButton: {fileID: 1387115829}
+  Input: {fileID: 39882490}
 --- !u!1 &1609031532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1653,8 +1653,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1716746159}
   - component: {fileID: 1716746160}
+  - component: {fileID: 1716746161}
   m_Layer: 5
-  m_Name: ScrollViewWrapper
+  m_Name: NewsListComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1698,6 +1699,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
+--- !u!114 &1716746161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1716746158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e12761d344e1a644830f4987c990b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Container: {fileID: 1609031533}
+  NewsEntryComponentPrefab: {fileID: 114195685428239078, guid: 871ca35ec15fa7749b143cbabf4290f6,
+    type: 2}
 --- !u!1 &1927970896
 GameObject:
   m_ObjectHideFlags: 0

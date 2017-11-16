@@ -9,13 +9,24 @@ namespace Client
     {
         public NetworkHandler NetworkHandlerPrefab;
         public NewsListComponent NewsListComponent;
+        public SearchComponent SearchComponent;
+
+        private NetworkHandler _networkHandler;
 
         void Start()
         {
-            var networkHandler = Instantiate(NetworkHandlerPrefab, transform);
-            networkHandler.Initialize();
+            _networkHandler = Instantiate(NetworkHandlerPrefab, transform);
+            _networkHandler.Initialize();
 
-            networkHandler.GetDefault(HandleLoaded);
+            SearchComponent.Setup();
+            SearchComponent.OnSearchStarted += HandleSearchStarted;
+
+            _networkHandler.GetDefault(HandleLoaded);
+        }
+
+        private void HandleSearchStarted(string searchText)
+        {
+            _networkHandler.SearchWith(searchText, HandleLoaded);
         }
 
         private void HandleLoaded(RootObject rootObj)
