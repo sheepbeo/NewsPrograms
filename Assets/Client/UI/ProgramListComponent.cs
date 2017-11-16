@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace Client.UI
 {
-    public class NewsListComponent : MonoBehaviour
+    public class ProgramListComponent : MonoBehaviour
     {
+        public Transform FullLoadingContainer;
         public Transform Container;
-        public NewsEntryComponent NewsEntryComponentPrefab;
+        public ProgramEntryComponent ProgramEntryComponentPrefab;
+
 
         // TODO pooling
         // TODO continue load near end
@@ -15,14 +17,9 @@ namespace Client.UI
 
         public void DisplayEntries(List<Datum> entryData)
         {
-            foreach (Transform t in Container)
-            {
-                Destroy(t.gameObject);
-            }
-
             foreach (var datum in entryData)
             {
-                var entryComponent = Instantiate(NewsEntryComponentPrefab, Container);
+                var entryComponent = Instantiate(ProgramEntryComponentPrefab, Container);
                 // TODO refactor this logic to model
                 if (!string.IsNullOrEmpty(datum.Title.Fi))
                 {
@@ -33,6 +30,19 @@ namespace Client.UI
                     entryComponent.Display(datum.Title.Und);
                 }
             }
+        }
+
+        public void ToggleFullLoading(bool state)
+        {
+            if (state)
+            {
+                foreach (Transform t in Container)
+                {
+                    Destroy(t.gameObject);
+                }
+            }
+
+            FullLoadingContainer.gameObject.SetActive(state);
         }
     }
 }

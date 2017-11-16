@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Client.UI
 {
-    public class NewsEntryComponent : MonoBehaviour
+    public class ProgramEntryComponent : MonoBehaviour
     {
         public Text Title;
 

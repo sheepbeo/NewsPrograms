@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224197620085999772}
   - component: {fileID: 114195685428239078}
   m_Layer: 5
-  m_Name: NewsEntry
+  m_Name: ProgramEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

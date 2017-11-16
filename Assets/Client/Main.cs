@@ -8,7 +8,7 @@ namespace Client
     public class Main : MonoBehaviour
     {
         public NetworkHandler NetworkHandlerPrefab;
-        public NewsListComponent NewsListComponent;
+        public ProgramListComponent ProgramListComponent;
         public SearchComponent SearchComponent;
 
         private NetworkHandler _networkHandler;
@@ -21,17 +21,20 @@ namespace Client
             SearchComponent.Setup();
             SearchComponent.OnSearchStarted += HandleSearchStarted;
 
+            ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.GetDefault(HandleLoaded);
         }
 
         private void HandleSearchStarted(string searchText)
         {
+            ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.SearchWith(searchText, HandleLoaded);
         }
 
         private void HandleLoaded(RootObject rootObj)
         {
-            NewsListComponent.DisplayEntries(rootObj.Data);
+            ProgramListComponent.ToggleFullLoading(false);
+            ProgramListComponent.DisplayEntries(rootObj.Data);
         }
     }
 }
