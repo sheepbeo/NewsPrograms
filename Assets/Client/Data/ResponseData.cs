@@ -50,6 +50,15 @@ namespace Client.Data
         public string En;
         public string Sv;
         public string Und;
+
+        public string GetFinalTitle()
+        {
+            if (!string.IsNullOrEmpty(Fi))
+            {
+                return Fi;
+            }
+            return Und;
+        }
     }
 
     [Serializable]

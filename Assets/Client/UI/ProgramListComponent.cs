@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Client.Data;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client.UI
 {
@@ -8,27 +9,28 @@ namespace Client.UI
     {
         public Transform FullLoadingContainer;
         public Transform Container;
+        public ScrollRect ScrollRect;
         public ProgramEntryComponent ProgramEntryComponentPrefab;
 
+        private int _nearBottomThreshold;
+        private int _currentDisplaying;
 
         // TODO pooling
-        // TODO continue load near end
-        // TODO config for number of entries
+        // TODO continue load near end - need flag while loading (avoid duplicates)
+
+        public void Setup(int nearBottomThreshold)
+        {
+            _nearBottomThreshold = nearBottomThreshold;
+
+            ScrollRect.onValueChanged.AddListener(HandleScrollValueChanged);
+        }
 
         public void DisplayEntries(List<Datum> entryData)
         {
             foreach (var datum in entryData)
             {
                 var entryComponent = Instantiate(ProgramEntryComponentPrefab, Container);
-                // TODO refactor this logic to model
-                if (!string.IsNullOrEmpty(datum.Title.Fi))
-                {
-                    entryComponent.Display(datum.Title.Fi);
-                }
-                else
-                {
-                    entryComponent.Display(datum.Title.Und);
-                }
+                entryComponent.Display(datum.Title.GetFinalTitle());
             }
         }
 
@@ -43,6 +45,11 @@ namespace Client.UI
             }
 
             FullLoadingContainer.gameObject.SetActive(state);
+        }
+
+        private void HandleScrollValueChanged(Vector2 arg0)
+        {
+            Debug.Log("value: " + arg0 + " normalized: " + ScrollRect.normalizedPosition);
         }
     }
 }

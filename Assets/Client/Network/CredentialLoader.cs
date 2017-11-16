@@ -2,6 +2,7 @@
 
 namespace Client.Network
 {
+    // TODO unit test
     public class CredentialLoader
     {
         private const string CredentialPath = "Authentication/credentials";

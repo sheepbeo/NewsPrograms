@@ -10,17 +10,20 @@ namespace Client
         public NetworkHandler NetworkHandlerPrefab;
         public ProgramListComponent ProgramListComponent;
         public SearchComponent SearchComponent;
+        public Config Config;
 
         private NetworkHandler _networkHandler;
 
         void Start()
         {
             _networkHandler = Instantiate(NetworkHandlerPrefab, transform);
-            _networkHandler.Initialize();
+            _networkHandler.Initialize(Config.ProgramQueryLimit, Config.InitialProgramCount);
 
             SearchComponent.Setup();
             SearchComponent.OnSearchStarted += HandleSearchStarted;
 
+            ProgramListComponent.Setup(Config.NearBottomThreshold);
+            
             ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.GetDefault(HandleLoaded);
         }
