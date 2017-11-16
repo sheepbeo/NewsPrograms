@@ -49,6 +49,7 @@ namespace Client.Data
         public string Fi;
         public string En;
         public string Sv;
+        public string Und;
     }
 
     [Serializable]

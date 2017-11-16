@@ -29,6 +29,7 @@ namespace Client.Network
         private IEnumerator GetDefaultData(Action<RootObject> callBack)
         {
             var uri = _baseUriAuthenticated;
+            Debug.Log(uri);
             UnityWebRequest www = UnityWebRequest.Get(uri);
             yield return www.Send();
 
@@ -42,6 +43,7 @@ namespace Client.Network
                     m.Groups[1] + m.Groups[2].ToString().ToUpper() + m.Groups[3]);
                 var rootObject = JsonUtility.FromJson<RootObject>(text);
                 callBack(rootObject);
+                
             }
         }
 
