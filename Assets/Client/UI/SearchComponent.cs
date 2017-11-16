@@ -11,6 +11,8 @@ namespace Client.UI
         public Button SearchButton;
         public InputField Input;
 
+        // TODO potential issue of pressing search button before ending entering text on InputField trigger input twice
+
         public void Setup()
         {
             SearchButton.onClick.AddListener(HandleSearchPressed);

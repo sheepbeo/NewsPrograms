@@ -15,26 +15,36 @@ namespace Client.Network
         private int _queryLimit;
 
         private Query _defaultQuery;
+        private Query _currentQuery;
 
-        public void Initialize(int queryLimit, int initialLoadCount)
+        public void Initialize(int queryLimit)
         {
             _queryLimit = queryLimit;
             var credentialLoader = new CredentialLoader();
             var credential = credentialLoader.GetCredential();
 
-            _defaultQuery = new Query(Mathf.Max(queryLimit, initialLoadCount), "");
+            _defaultQuery = new Query(queryLimit, "");
             _baseUriAuthenticated = BaseUri + "?app_id=" + credential.AppId + "&app_key=" + credential.AppKey;
         }
 
         public void GetDefault(Action<RootObject> callBack)
         {
+            _defaultQuery.Reset();
+            _currentQuery = _defaultQuery;
             StartCoroutine(LoadData(_defaultQuery, callBack));
         }
 
         public void SearchWith(string searchText, Action<RootObject> callBack)
         {
             var query = new Query(_queryLimit, searchText);
+            _currentQuery = query;
             StartCoroutine(LoadData(query, callBack));
+        }
+
+        public void ContinueLoad(Action<RootObject> callBack)
+        {
+            _currentQuery.Increment();
+            StartCoroutine(LoadData(_currentQuery, callBack));
         }
 
         private IEnumerator LoadData(Query query, Action<RootObject> callBack)
@@ -50,6 +60,8 @@ namespace Client.Network
             }
             else
             {
+                // TODO refactor to seperate unity serialization wrapper and 
+                // TODO Serialization depth limit 7 
                 var text = Regex.Replace(www.downloadHandler.text, @"("")(\w)(\w*"":)", m =>
                     m.Groups[1] + m.Groups[2].ToString().ToUpper() + m.Groups[3]);
                 var rootObject = JsonUtility.FromJson<RootObject>(text);

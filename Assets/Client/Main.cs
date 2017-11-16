@@ -17,12 +17,13 @@ namespace Client
         void Start()
         {
             _networkHandler = Instantiate(NetworkHandlerPrefab, transform);
-            _networkHandler.Initialize(Config.ProgramQueryLimit, Config.InitialProgramCount);
+            _networkHandler.Initialize(Config.ProgramQueryLimit);
 
             SearchComponent.Setup();
             SearchComponent.OnSearchStarted += HandleSearchStarted;
 
             ProgramListComponent.Setup(Config.NearBottomThreshold);
+            ProgramListComponent.OnReachEnd += HandleOnReachEnd;
             
             ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.GetDefault(HandleLoaded);
@@ -32,6 +33,11 @@ namespace Client
         {
             ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.SearchWith(searchText, HandleLoaded);
+        }
+
+        private void HandleOnReachEnd()
+        {
+            _networkHandler.ContinueLoad(HandleLoaded);
         }
 
         private void HandleLoaded(RootObject rootObj)

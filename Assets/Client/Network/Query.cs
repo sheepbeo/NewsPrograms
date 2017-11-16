@@ -36,5 +36,10 @@ namespace Client.Network
         {
             _offset += _queryLimit;
         }
+
+        public void Reset()
+        {
+            _offset = 0;
+        }
     }
 }
