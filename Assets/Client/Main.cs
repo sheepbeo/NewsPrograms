@@ -21,10 +21,16 @@ namespace Client
 
             SearchComponent.Setup();
             SearchComponent.OnSearchStarted += HandleSearchStarted;
+            SearchComponent.OnSearchCanceled += HandleSearchCanceled;
 
             ProgramListComponent.Setup(Config.NearBottomThreshold);
             ProgramListComponent.OnReachEnd += HandleOnReachEnd;
             
+            LoadDefault();
+        }
+
+        private void LoadDefault()
+        {
             ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.GetDefault(HandleLoaded);
         }
@@ -33,6 +39,11 @@ namespace Client
         {
             ProgramListComponent.ToggleFullLoading(true);
             _networkHandler.SearchWith(searchText, HandleLoaded);
+        }
+
+        private void HandleSearchCanceled()
+        {
+            LoadDefault();
         }
 
         private void HandleOnReachEnd()

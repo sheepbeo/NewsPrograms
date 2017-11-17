@@ -1,0 +1,13 @@
+﻿Step 3:
+	Make UI classes [done]
+	Implement loading more entries when at bottom [done]
+	Cancel search (clear all data) [done]
+
+Step 4:
+	Tap to view more detail
+	Video loading
+	Draw Call Optimization
+
+Step 5: (wishlist)
+	Minimize to bottom
+	Pooling
