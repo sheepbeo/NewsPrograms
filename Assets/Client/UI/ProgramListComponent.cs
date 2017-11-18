@@ -10,6 +10,7 @@ namespace Client.UI
     public class ProgramListComponent : MonoBehaviour
     {
         public event Action OnReachEnd = () => { };
+        public event Action<Datum> OnSelectDatum = (datum) => { };
 
         public Transform FullLoadingContainer;
         public Transform Container;
@@ -58,7 +59,11 @@ namespace Client.UI
             foreach (var datum in entryData)
             {
                 var entryComponent = Instantiate(ProgramEntryComponentPrefab, Container);
-                entryComponent.Display(datum.Title.GetFinalTitle());
+                entryComponent.Setup(() =>
+                {
+                    HandleSelectDatum(datum);
+                });
+                entryComponent.Display(datum.GetFinalTitle());
             }
 
             EndReachedLoadingContainer.SetParent(Container);
@@ -67,6 +72,11 @@ namespace Client.UI
             _mayHaveMoreData = (entryData.Count > 0);
             EndReachedLoadingContainer.gameObject.SetActive(entryData.Count > 0);
             StartCoroutine(CheckIfAlreadyReachedEnd());
+        }
+
+        private void HandleSelectDatum(Datum datum)
+        {
+            OnSelectDatum(datum);
         }
 
         /// <summary>

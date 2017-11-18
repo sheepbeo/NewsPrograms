@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine.Playables;
+
 // ReSharper disable UnusedMember.Global
 
 namespace Client.Data
@@ -274,15 +276,32 @@ namespace Client.Data
         public Tags Tags;
         public Service Service;
         public List<Publisher> Publisher;
-        public DateTime StartTime;
+        public string StartTime;
         public string TemporalStatus;
-        public DateTime EndTime;
+        public string EndTime;
         public string Type;
         public string Duration;
         public string Region;
         public string Id;
         public int Version;
         public Media Media;
+
+        public DateTime GetStartTime()
+        {
+            return ParseDateTime(StartTime);
+        }
+
+        public float GetDuration()
+        {
+            return (float)((ParseDateTime(EndTime) - ParseDateTime(StartTime)).TotalSeconds);
+        }
+
+        private DateTime ParseDateTime(string text)
+        {
+            var dateTime = DateTime.MinValue;
+            DateTime.TryParse(text, out dateTime);
+            return dateTime;
+        }
     }
 
     [Serializable]
@@ -324,6 +343,31 @@ namespace Client.Data
         public LongDescription LongDescription;
         public List<Interaction> Interactions;
         public PromotionTitle PromotionTitle;
+
+        public DateTime? GetStartTime()
+        {
+            if (PublicationEvent.Count > 0)
+            {
+                return PublicationEvent[0].GetStartTime();
+            }
+
+            return null;
+        }
+
+        public float GetDurationSeconds()
+        {
+            if (PublicationEvent.Count > 0)
+            {
+                return PublicationEvent[0].GetDuration();
+            }
+
+            return 0f;
+        }
+
+        public string GetFinalTitle()
+        {
+            return Title.GetFinalTitle();
+        }
     }
 
     [Serializable]

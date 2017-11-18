@@ -7,6 +7,7 @@ Step 4:
 	Tap to view more detail
 	Video loading
 	Draw Call Optimization
+		Script to disable raycast target
 
 Step 5: (wishlist)
 	Minimize to bottom

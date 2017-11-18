@@ -8,8 +8,13 @@ namespace Client
     public class Main : MonoBehaviour
     {
         public NetworkHandler NetworkHandlerPrefab;
-        public ProgramListComponent ProgramListComponent;
         public SearchComponent SearchComponent;
+        public ProgramListComponent ProgramListComponent;
+        public ProgramDetailComponent ProgramDetailComponent;
+
+        public Transform ProgramListContainer;
+        public Transform ProgramDetailContainer;
+
         public Config Config;
 
         private NetworkHandler _networkHandler;
@@ -25,7 +30,8 @@ namespace Client
 
             ProgramListComponent.Setup(Config.NearBottomThreshold);
             ProgramListComponent.OnReachEnd += HandleOnReachEnd;
-            
+            ProgramListComponent.OnSelectDatum += HandleSelectDatum;
+
             LoadDefault();
         }
 
@@ -49,6 +55,13 @@ namespace Client
         private void HandleOnReachEnd()
         {
             _networkHandler.ContinueLoad(HandleLoaded);
+        }
+
+        private void HandleSelectDatum(Datum datum)
+        {
+            ProgramListContainer.gameObject.SetActive(false);
+            ProgramDetailContainer.gameObject.SetActive(true);
+            ProgramDetailComponent.DisplayDatum(datum);
         }
 
         private void HandleLoaded(RootObject rootObj)
