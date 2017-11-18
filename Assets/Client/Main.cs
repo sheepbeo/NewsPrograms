@@ -32,6 +32,9 @@ namespace Client
             ProgramListComponent.OnReachEnd += HandleOnReachEnd;
             ProgramListComponent.OnSelectDatum += HandleSelectDatum;
 
+            ProgramDetailComponent.Setup();
+            ProgramDetailComponent.OnBackPressed += HandleBackFromDetail;
+
             LoadDefault();
         }
 
@@ -57,6 +60,12 @@ namespace Client
             _networkHandler.ContinueLoad(HandleLoaded);
         }
 
+        private void HandleLoaded(RootObject rootObj)
+        {
+            ProgramListComponent.ToggleFullLoading(false);
+            ProgramListComponent.DisplayEntries(rootObj.Data);
+        }
+
         private void HandleSelectDatum(Datum datum)
         {
             ProgramListContainer.gameObject.SetActive(false);
@@ -64,10 +73,10 @@ namespace Client
             ProgramDetailComponent.DisplayDatum(datum);
         }
 
-        private void HandleLoaded(RootObject rootObj)
+        private void HandleBackFromDetail()
         {
-            ProgramListComponent.ToggleFullLoading(false);
-            ProgramListComponent.DisplayEntries(rootObj.Data);
+            ProgramListContainer.gameObject.SetActive(true);
+            ProgramDetailContainer.gameObject.SetActive(false);
         }
     }
 }
