@@ -6,7 +6,8 @@ using UnityEngine.UI;
 namespace Client.UI
 {
     // TODO more fields
-    // TODO back to list
+    // TODO publication event array
+    // TODO subject array
 
     public class ProgramDetailComponent : MonoBehaviour
     {
