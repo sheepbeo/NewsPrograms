@@ -15,7 +15,7 @@ namespace Client.UI
         {
             Service.text = publicationEvent.GetService();
             StartTime.text = publicationEvent.GetStartTime().ToString(CultureInfo.InvariantCulture);
-            Duration.text = publicationEvent.GetDuration().ToString();
+            Duration.text = publicationEvent.GetDuration();
         }
     }
 }

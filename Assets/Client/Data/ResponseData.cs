@@ -312,21 +312,14 @@ namespace Client.Data
             return "";
         }
 
-        public DateTime GetStartTime()
+        public string GetStartTime()
         {
-            return ParseDateTime(StartTime);
+            return StartTime;
         }
 
-        public TimeSpan GetDuration()
+        public string GetDuration()
         {
-            return ParseDateTime(EndTime) - ParseDateTime(StartTime);
-        }
-
-        private DateTime ParseDateTime(string text)
-        {
-            var dateTime = DateTime.MinValue;
-            DateTime.TryParse(text, out dateTime);
-            return dateTime;
+            return Duration;
         }
     }
 
