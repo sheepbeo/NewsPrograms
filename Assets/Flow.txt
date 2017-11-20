@@ -14,7 +14,7 @@ Step 3:
 	Cancel search (clear all data) [done]
 
 Step 4:
-	Tap to view more detail
+	Tap to view more detail [done]
 	Video loading - WindowsMediaPlayer does not seem to be able to load stream
 	Draw Call Optimization
 		Script to disable raycast target

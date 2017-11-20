@@ -19,6 +19,8 @@ namespace Client.UI
         public Transform PublicationEventContainer;
         public PublicationEventComponent PublicationEventComponentPrefab;
 
+        public ScrollRect ScrollRect;
+
         public void Setup()
         {
             BackButton.onClick.AddListener(HandleBackButtonPressed);
@@ -43,6 +45,9 @@ namespace Client.UI
             }
 
             StartCoroutine(RecheckLayout());
+
+            // reset scroll view position
+            ScrollRect.normalizedPosition = Vector2.one;
         }
 
         private void HandleBackButtonPressed()
