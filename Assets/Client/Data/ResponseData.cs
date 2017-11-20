@@ -30,10 +30,11 @@ namespace Client.Data
     {
         public string Fi;
         public string Sv;
+        public string Se;
 
         public string GetFinalDescription()
         {
-            return Fi;
+            return DataHelper.GetNotEmpty(Fi, Sv, Se);
         }
     }
 
@@ -58,15 +59,12 @@ namespace Client.Data
         public string Fi;
         public string En;
         public string Sv;
+        public string Se;
         public string Und;
 
         public string GetFinalTitle()
         {
-            if (!string.IsNullOrEmpty(Fi))
-            {
-                return Fi;
-            }
-            return Und;
+            return DataHelper.GetNotEmpty(Fi, Sv, Se, En, Und);
         }
     }
 
