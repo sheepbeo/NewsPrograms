@@ -1,14 +1,25 @@
-﻿Step 3:
-	Make UI classes [done]
+﻿Step 1:
+	Test Yle Api through Unity [done]
+	Network handling class [done]
+	Resolve placement of Api keys [done]
+
+Step 2:
+	Json Parsing [done]
+	Data classes [done]
+
+Step 3:
+	List programs [done]
+	Search bar [done]
 	Implement loading more entries when at bottom [done]
 	Cancel search (clear all data) [done]
 
 Step 4:
 	Tap to view more detail
-	Video loading
+	Video loading - WindowsMediaPlayer does not seem to be able to load stream
 	Draw Call Optimization
 		Script to disable raycast target
 
 Step 5: (wishlist)
+	Image of program
 	Minimize to bottom
 	Pooling

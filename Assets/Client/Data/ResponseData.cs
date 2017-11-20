@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine.Playables;
+using System.Text;
 
+// ReSharper disable UnassignedField.Global
+// ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
 
 namespace Client.Data
@@ -28,6 +30,11 @@ namespace Client.Data
     {
         public string Fi;
         public string Sv;
+
+        public string GetFinalDescription()
+        {
+            return Fi;
+        }
     }
 
     [Serializable]
@@ -79,6 +86,15 @@ namespace Client.Data
         public List<Notation> Notation;
         public Broader Broader;
         public string Key;
+
+        public string GetTitle()
+        {
+            if (Title != null)
+            {
+                return Title.GetFinalTitle();
+            }
+            return "";
+        }
     }
 
     [Serializable]
@@ -286,14 +302,24 @@ namespace Client.Data
         public int Version;
         public Media Media;
 
+        public string GetService()
+        {
+            if (Service != null)
+            {
+                return Service.Id;
+            }
+
+            return "";
+        }
+
         public DateTime GetStartTime()
         {
             return ParseDateTime(StartTime);
         }
 
-        public float GetDuration()
+        public TimeSpan GetDuration()
         {
-            return (float)((ParseDateTime(EndTime) - ParseDateTime(StartTime)).TotalSeconds);
+            return ParseDateTime(EndTime) - ParseDateTime(StartTime);
         }
 
         private DateTime ParseDateTime(string text)
@@ -344,29 +370,59 @@ namespace Client.Data
         public List<Interaction> Interactions;
         public PromotionTitle PromotionTitle;
 
-        public DateTime? GetStartTime()
+        public string GetTitle()
         {
-            if (PublicationEvent.Count > 0)
+            if (Title != null)
             {
-                return PublicationEvent[0].GetStartTime();
+                return Title.GetFinalTitle();
             }
-
-            return null;
+            return "";
         }
 
-        public float GetDurationSeconds()
+        public string GetDescription()
         {
-            if (PublicationEvent.Count > 0)
+            if (Description != null)
             {
-                return PublicationEvent[0].GetDuration();
+                return Description.GetFinalDescription();
             }
 
-            return 0f;
+            return "";
         }
 
-        public string GetFinalTitle()
+        public string GetTypeText()
         {
-            return Title.GetFinalTitle();
+            return Type;
+        }
+
+        public string GetSubject()
+        {
+            if (Subject != null)
+            {
+                var stringBuilder = new StringBuilder();
+                foreach (var subject in Subject)
+                {
+                    stringBuilder.Append(subject.GetTitle()).Append(", ");
+                }
+
+                if (stringBuilder.Length >= 2)
+                {
+                    stringBuilder.Remove(stringBuilder.Length - 2, 2);
+                }
+
+                return stringBuilder.ToString();
+            }
+
+            return "";
+        }
+
+        public List<PublicationEvent> GetPublicationEvents()
+        {
+            if (PublicationEvent != null)
+            {
+                return PublicationEvent;
+            }
+
+            return new List<PublicationEvent>();
         }
     }
 

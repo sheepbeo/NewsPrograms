@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace Client.UI
 {
-    // TODO more fields
     // TODO publication event array
     // TODO subject array
 
@@ -15,8 +14,12 @@ namespace Client.UI
         public Button BackButton;
 
         public Text Title;
-        public Text StartTime;
-        public Text Duration;
+        public Text Description;
+        public Text Type;
+        public Text Subject;
+
+        public Transform PublicationEventContainer;
+        public PublicationEventComponent PublicationEventComponentPrefab;
 
         public void Setup()
         {
@@ -25,10 +28,16 @@ namespace Client.UI
 
         public void DisplayDatum(Datum datum)
         {
-            Title.text = datum.GetFinalTitle();
-            StartTime.text = datum.GetStartTime().ToString();
-            var duration = TimeSpan.FromSeconds(datum.GetDurationSeconds());
-            Duration.text = duration.ToString();
+            Title.text = datum.GetTitle();
+            Description.text = datum.GetDescription();
+            Type.text = datum.GetTypeText();
+            Subject.text = datum.GetSubject();
+
+            foreach (var publicationEvent in datum.GetPublicationEvents())
+            {
+                var publicationEventComponent = Instantiate(PublicationEventComponentPrefab, PublicationEventContainer);
+                publicationEventComponent.Display(publicationEvent);
+            }
         }
 
         private void HandleBackButtonPressed()

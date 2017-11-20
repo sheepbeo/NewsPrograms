@@ -63,7 +63,7 @@ namespace Client.UI
                 {
                     HandleSelectDatum(datum);
                 });
-                entryComponent.Display(datum.GetFinalTitle());
+                entryComponent.Display(datum.GetTitle());
             }
 
             EndReachedLoadingContainer.SetParent(Container);
