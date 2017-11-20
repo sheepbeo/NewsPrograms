@@ -1,6 +1,5 @@
 ﻿namespace Client.Data
 {
-    // TODO unit test
     public class DataHelper
     {
         public static string GetNotEmpty(params string[] input)

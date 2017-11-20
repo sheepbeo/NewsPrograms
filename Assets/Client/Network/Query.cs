@@ -2,7 +2,6 @@
 
 namespace Client.Network
 {
-    // TODO unit test
     public class Query
     {
         private readonly int _queryLimit;

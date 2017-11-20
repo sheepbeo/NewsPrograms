@@ -16,8 +16,8 @@ Step 3:
 Step 4:
 	Tap to view more detail [done]
 	Video loading - WindowsMediaPlayer does not seem to be able to load stream
-	Draw Call Optimization
-		Script to disable raycast target
+	Draw Call Optimization [done]
+	Script to disable raycast target [done]
 
 Step 5: (wishlist)
 	Image of program

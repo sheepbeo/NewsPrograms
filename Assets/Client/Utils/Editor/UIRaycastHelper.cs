@@ -6,7 +6,7 @@ namespace Client.Utils.Editor
 {
     public class UiRaycastHelper
     {
-        [MenuItem("Tools/UI/Turn Off Ray Cast #C")]
+        [MenuItem("Tools/UI/Turn Off Ray Cast &C")]
         public static void TurnOffRayCastSelected()
         {
             var objs = Selection.gameObjects;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Text.RegularExpressions;
 using Client.Data;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -16,6 +15,7 @@ namespace Client.Network
 
         private Query _defaultQuery;
         private Query _currentQuery;
+        private readonly JsonSerializationWrapper _jsonSerializer = new JsonSerializationWrapper();
 
         public void Initialize(int queryLimit)
         {
@@ -60,11 +60,7 @@ namespace Client.Network
             }
             else
             {
-                // TODO refactor to seperate unity serialization wrapper and 
-                // TODO Serialization depth limit 7 
-                var text = Regex.Replace(www.downloadHandler.text, @"("")(\w)(\w*"":)", m =>
-                    m.Groups[1] + m.Groups[2].ToString().ToUpper() + m.Groups[3]);
-                var rootObject = JsonUtility.FromJson<RootObject>(text);
+                var rootObject = _jsonSerializer.Parse<RootObject>(www.downloadHandler.text, true);
                 callBack(rootObject);
             }
         }

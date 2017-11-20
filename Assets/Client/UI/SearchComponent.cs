@@ -39,7 +39,6 @@ namespace Client.UI
         {
             // Current workaround for losing focus makes InputField submit
             // From https://forum.unity.com/threads/how-do-i-stop-inputfield-submitting-twice-when-enter-and-again-when-it-loses-focus.278739/
-            // TODO test this on device
             // https://forum.unity.com/threads/inputfield-focus-triggers-onendedit-and-touchscreenkeyboard-done-triggers-on-loss-of-focus-what-now.442417/
             if (EventSystem.current.alreadySelecting) return; 
 
